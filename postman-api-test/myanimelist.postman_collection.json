@@ -1,0 +1,2743 @@
+{
+	"info": {
+		"_postman_id": "75d33465-2704-4b38-8731-17060f222e8a",
+		"name": "myanimelist",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20638050"
+	},
+	"item": [
+		{
+			"name": "Get anime list",
+			"item": [
+				{
+					"name": "Without authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/anime?q=one&limit=1",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"anime"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "one"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{typeform_personal_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/anime?q=one&limit=1",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"anime"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "one"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid token and parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Successful GET request\", () => {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return status code 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return data and paging\", function(){\r",
+									"    pm.expect(jsonData.data).to.not.empty;\r",
+									"    pm.expect(jsonData.paging).to.not.empty\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1s\", () => {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/anime?q=one&limit=1",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"anime"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "one"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/anime?q=one&limit=1000",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"anime"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "one"
+								},
+								{
+									"key": "limit",
+									"value": "1000"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get anime details",
+			"item": [
+				{
+					"name": "Without authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/anime/1535",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"anime",
+								"1535"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{typeform_personal_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/anime/1535",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"anime",
+								"1535"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid token and parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Successful GET request\", () => {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return status code 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return id, title and main_picture\", function(){\r",
+									"    pm.expect(jsonData.id).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.title).to.not.empty;\r",
+									"    pm.expect(jsonData.main_picture).to.not.empty;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1s\", () => {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/anime/1535",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"anime",
+								"1535"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/anime/abcde",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"anime",
+								"abcde"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get anime ranking",
+			"item": [
+				{
+					"name": "Without authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/anime/ranking",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"anime",
+								"ranking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{typeform_personal_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/anime/ranking",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"anime",
+								"ranking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid token and parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Successful GET request\", () => {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return status code 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return data and paging\", function(){\r",
+									"    pm.expect(jsonData.data).to.not.empty;\r",
+									"    pm.expect(jsonData.paging).to.not.empty;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1s\", () => {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/anime/ranking?ranking_type=all&limit=3",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"anime",
+								"ranking"
+							],
+							"query": [
+								{
+									"key": "ranking_type",
+									"value": "all"
+								},
+								{
+									"key": "limit",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/anime/ranking?ranking_type=xx&limit=3",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"anime",
+								"ranking"
+							],
+							"query": [
+								{
+									"key": "ranking_type",
+									"value": "xx"
+								},
+								{
+									"key": "limit",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get seasonal anime",
+			"item": [
+				{
+					"name": "Without authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/anime/season/2022/spring",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"anime",
+								"season",
+								"2022",
+								"spring"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{typeform_personal_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/anime/season/2022/spring",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"anime",
+								"season",
+								"2022",
+								"spring"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid token and parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Successful GET request\", () => {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return status code 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return data and paging\", function(){\r",
+									"    pm.expect(jsonData.data).to.not.empty;\r",
+									"    pm.expect(jsonData.paging).to.not.empty;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1s\", () => {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/anime/season/2022/spring?limit=3",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"anime",
+								"season",
+								"2022",
+								"spring"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/anime/season/1900/spring",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"anime",
+								"season",
+								"1900",
+								"spring"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get user anime list",
+			"item": [
+				{
+					"name": "Without authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/users/testabc123/animelist",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"users",
+								"testabc123",
+								"animelist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{typeform_personal_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/users/testabc123/animelist",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"users",
+								"testabc123",
+								"animelist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid token and parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Successful GET request\", () => {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return status code 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return data and paging\", function(){\r",
+									"    pm.expect(jsonData.data).to.not.empty;\r",
+									"    pm.expect(jsonData.paging).to.not.empty;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1s\", () => {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/users/testabc123/animelist?limit=2",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"users",
+								"testabc123",
+								"animelist"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/users/testabc123/animelist?status=xx",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"users",
+								"testabc123",
+								"animelist"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "xx"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get forum boards",
+			"item": [
+				{
+					"name": "Without authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/forum/boards",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"forum",
+								"boards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{typeform_personal_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/forum/boards",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"forum",
+								"boards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid token and parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Successful GET request\", () => {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return status code 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return categories\", function(){\r",
+									"    pm.expect(jsonData.categories).to.not.empty;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1s\", () => {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/forum/boards",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"forum",
+								"boards"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get forum topic detail",
+			"item": [
+				{
+					"name": "Without authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/forum/topic/10",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"forum",
+								"topic",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{typeform_personal_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/forum/topic/10",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"forum",
+								"topic",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid token and parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Successful GET request\", () => {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return status code 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return data and paging\", function(){\r",
+									"    pm.expect(jsonData.data).to.not.empty;\r",
+									"    pm.expect(jsonData.paging).to.not.empty;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1s\", () => {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/forum/topic/10?limit=2",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"forum",
+								"topic",
+								"10"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/forum/topic/abc",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"forum",
+								"topic",
+								"abc"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get forum topics",
+			"item": [
+				{
+					"name": "Without authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/forum/topics?q=natsume&limit=1",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"forum",
+								"topics"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "natsume"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{typeform_personal_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/forum/topics?q=natsume&limit=1",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"forum",
+								"topics"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "natsume"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid token and parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Successful GET request\", () => {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return status code 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return data and paging\", function(){\r",
+									"    pm.expect(jsonData.data).to.not.empty;\r",
+									"    pm.expect(jsonData.paging).to.not.empty;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1s\", () => {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/forum/topics?q=natsume&limit=1",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"forum",
+								"topics"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "natsume"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/forum/topics?q=!@#$",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"forum",
+								"topics"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "!@"
+								}
+							],
+							"hash": "$"
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get manga list",
+			"item": [
+				{
+					"name": "Without authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/manga?q=bleach",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"manga"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "bleach"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{typeform_personal_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/manga?q=bleach",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"manga"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "bleach"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid token and parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Successful GET request\", () => {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return status code 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return data and paging\", function(){\r",
+									"    pm.expect(jsonData.data).to.not.empty;\r",
+									"    pm.expect(jsonData.paging).to.not.empty;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1s\", () => {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/manga?q=bleach&limit=2",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"manga"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "bleach"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/manga?q=!@#$%",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"manga"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "!@"
+								}
+							],
+							"hash": "$%"
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get manga details",
+			"item": [
+				{
+					"name": "Without authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/manga/102",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"manga",
+								"102"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{typeform_personal_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/manga/102",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"manga",
+								"102"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid token and parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Successful GET request\", () => {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return status code 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return id, title and main_picture\", function(){\r",
+									"    pm.expect(jsonData.id).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.title).to.not.empty;\r",
+									"    pm.expect(jsonData.main_picture).to.not.empty;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1s\", () => {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/manga/102",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"manga",
+								"102"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/manga/abc",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"manga",
+								"abc"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get manga ranking",
+			"item": [
+				{
+					"name": "Without authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/manga/ranking",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"manga",
+								"ranking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{typeform_personal_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/manga/ranking",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"manga",
+								"ranking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid token and parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Successful GET request\", () => {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return status code 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return data and paging\", function(){\r",
+									"    pm.expect(jsonData.data).to.not.empty;\r",
+									"    pm.expect(jsonData.paging).to.not.empty;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1s\", () => {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/manga/ranking?limit=3",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"manga",
+								"ranking"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/manga/ranking?ranking_type=xx",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"manga",
+								"ranking"
+							],
+							"query": [
+								{
+									"key": "ranking_type",
+									"value": "xx"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get user manga list",
+			"item": [
+				{
+					"name": "Without authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/users/testabc123/mangalist",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"users",
+								"testabc123",
+								"mangalist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid authorization token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{typeform_personal_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/users/testabc123/mangalist",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"users",
+								"testabc123",
+								"mangalist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid token and parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Successful GET request\", () => {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return status code 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"It should return data and paging\", function(){\r",
+									"    pm.expect(jsonData.data).to.not.empty;\r",
+									"    pm.expect(jsonData.paging).to.not.empty;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1s\", () => {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/users/testabc123/mangalist?limit=2",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"users",
+								"testabc123",
+								"mangalist"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"It should return status code 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "00ab0345ee828f9c53e005599944bf5e",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-MAL-CLIENT-ID",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.myanimelist.net/v2/users/testabc123/mangalist?status=xx",
+							"protocol": "https",
+							"host": [
+								"api",
+								"myanimelist",
+								"net"
+							],
+							"path": [
+								"v2",
+								"users",
+								"testabc123",
+								"mangalist"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "xx"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "sample",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.myanimelist.net/v2/anime?q=one&limit=1",
+					"protocol": "https",
+					"host": [
+						"api",
+						"myanimelist",
+						"net"
+					],
+					"path": [
+						"v2",
+						"anime"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "one"
+						},
+						{
+							"key": "limit",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
