@@ -1,10 +1,10 @@
 # qa-capstone
 ---
-* [Tasks](https://github.com/osmlowis/qa-capstone/edit/main/README.md#tasks)
-* [Test Site](https://github.com/osmlowis/qa-capstone/edit/main/README.md#test-site)
-* [Test Plan](https://github.com/osmlowis/qa-capstone/edit/main/README.md#test-plan)
-* [Test Case & Script](https://github.com/osmlowis/qa-capstone/edit/main/README.md#test-case)
-* [Test Report](https://github.com/osmlowis/qa-capstone/edit/main/README.md#test-report)
+* [Tasks](#tasks)
+* [Test Site](#test-site)
+* [Test Plan](#test-plan)
+* [Test Case & Script](#test-case--script)
+* [Test Report](#test-report)
 ---
 ## Tasks:
 1. Search for a website and test at least 4 modules. 
